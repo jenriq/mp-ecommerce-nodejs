@@ -11,9 +11,9 @@ const mercadopago = require('mercadopago');
 
 // Agrega credenciales
 mercadopago.configure({
-    access_token: 'APP_USR-6317427424180639-042414-47e969706991d3a442922b0702a0da44-469485398'
+    access_token: 'APP_USR-6317427424180639-042414-47e969706991d3a442922b0702a0da44-469485398',
+    integrator_id: 'dev_24c65fb163bf11ea96500242ac130004'
 });
-
 
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
@@ -38,6 +38,10 @@ app.get('/pending', function (req, res) {
     res.render('pending', req.query);
 });
 
+app.post('/notification', function (req, res) {
+    console.log(req.body);
+});
+
 
 app.post('/preference', function (req, res) {
 
@@ -45,72 +49,67 @@ app.post('/preference', function (req, res) {
     let preference = {
         "items": [
             {
-                "id": "item-ID-1234",
+                "id": "1234",
                 "title": req.body.title,
-                "currency_id": "MXN",
                 "picture_url": req.body.img.replace('./', req.get('origin') + '/'),
-                "description": req.body.title,
-                "category_id": "art",
+                "description": "​Dispositivo móvil de Tienda e-commerce",
                 "quantity": req.body.unit,
                 "unit_price": req.body.price
             }
         ],
         "payer": {
-            "name": "Juan",
-            "surname": "Lopez",
-            "email": "user@email.com",
+            "name": "Lalo",
+            "surname": "Landa",
+            "email": "test_user_63274575@testuser.com",
             "phone": {
                 "area_code": "11",
-                "number": "4444-4444"
+                "number": "22223333"
             },
             "identification": {
                 "type": "DNI",
-                "number": "12345678"
+                "number": "32659430"
             },
             "address": {
-                "street_name": "Street",
+                "street_name": "False",
                 "street_number": 123,
-                "zip_code": "5700"
+                "zip_code": "1111"
             }
         },
         "back_urls": {
-            "success": "https://www.success.com",
-            "failure": "http://www.failure.com",
-            "pending": "http://www.pending.com"
+            "success": req.get('origin') + "/success",
+            "failure": req.get('origin') + "/failure",
+            "pending": req.get('origin') + "/pending"
         },
         "auto_return": "approved",
         "payment_methods": {
             "excluded_payment_methods": [
                 {
-                    "id": "master"
+                    "id": "amex"
                 }
             ],
             "excluded_payment_types": [
                 {
-                    "id": "ticket"
+                    "id": "atm"
                 }
             ],
-            "installments": 12
+            "installments": 6
         },
-        "notification_url": "https://www.your-site.com/ipn",
-        "external_reference": "Reference_1234",
-        "expires": true,
-        "expiration_date_from": "2016-02-01T12:00:00.000-04:00",
-        "expiration_date_to": "2016-02-28T12:00:00.000-04:00"
+        "notification_url": req.get('origin') + "/notification",
+        "external_reference": "jeenrique@hotmail.com"
     };
     
-    console.log(req.get('origin'));
-    console.log(preference);
+    //console.log(req.get('origin'));
+    //console.log(preference);
 
-    res.redirect("/");
+    //res.redirect("/");
 
-    // mercadopago.preferences.create(preference)
-    //     .then(function (response) {
-    //         // console.log(response);
-    //         res.redirect(response.body.init_point);
-    //     }).catch(function (error) {
-    //         console.log(error);
-    //     });
+    mercadopago.preferences.create(preference)
+        .then(function (response) {
+            res.redirect(response.body.init_point);
+         }).catch(function (error) {
+            console.log(error);
+            res.redirect("/");
+        });
 
 
 });

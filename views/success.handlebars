@@ -1,3 +1,4 @@
+<script src="https://www.mercadopago.com/v2/security.js"></script>
 <div class="as-search-wrapper" role="main">
     <div class="as-navtuck-wrapper">
         <div class="as-l-fullwidth  as-navtuck" data-events="event52">
@@ -77,11 +78,14 @@
                             <div class="as-producttile-titlepricewraper" style="min-height: 128px;">
                                 <h1 class="as-producttile-name">Success</h1>
                                 <p>
-                                    {{ title }}
-                                    <br />
-                                    {{ price }}
-                                    <br />
-                                    {{ unit }}
+                                    <b>collection_id:</b> {{collection_id}}<br />
+                                    <b>collection_status:</b> {{collection_status}}<br />
+                                    <b>external_reference:</b> {{external_reference}}<br />
+                                    <b>payment_type:</b> {{payment_type}}<br />
+                                    <b>preference_id:</b> {{preference_id}}<br />
+                                    <b>site_id:</b> {{site_id}}<br />
+                                    <b>processing_mode:</b> {{processing_mode}}<br />
+                                    <b>merchant_account_id:</b> {{merchant_account_id}}<br />
                                 </p>
                             </div>
                         </div>
