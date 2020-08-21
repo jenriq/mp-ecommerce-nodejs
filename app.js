@@ -39,6 +39,7 @@ app.get('/pending', function (req, res) {
 });
 
 app.post('/notification', function (req, res) {
+    console.log("*** notification ***");
     console.log(req.body);
 });
 
@@ -103,6 +104,7 @@ app.post('/preference', function (req, res) {
 
     mercadopago.preferences.create(preference)
         .then(function (response) {
+            console.log("*** preference ***");
             console.log(response.body);
             res.redirect(response.body.init_point);
          }).catch(function (error) {
