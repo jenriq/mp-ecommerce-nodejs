@@ -53,8 +53,8 @@ app.post('/preference', function (req, res) {
                 "title": req.body.title,
                 "picture_url": req.body.img.replace('./', req.get('origin') + '/'),
                 "description": "​Dispositivo móvil de Tienda e-commerce",
-                "quantity": req.body.unit,
-                "unit_price": req.body.price
+                "quantity": Number.parseInt(req.body.unit),
+                "unit_price": Number.parseInt(req.body.price)
             }
         ],
         "payer": {
@@ -63,7 +63,7 @@ app.post('/preference', function (req, res) {
             "email": "test_user_63274575@testuser.com",
             "phone": {
                 "area_code": "11",
-                "number": "22223333"
+                "number": 22223333
             },
             "identification": {
                 "type": "DNI",
