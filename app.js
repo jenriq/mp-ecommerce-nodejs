@@ -98,11 +98,12 @@ app.post('/preference', function (req, res) {
         "external_reference": "jeenrique@hotmail.com"
     };
     
-    console.log(preference);
+    //console.log(preference);
     //res.redirect("/");
 
     mercadopago.preferences.create(preference)
         .then(function (response) {
+            console.log(response.body);
             res.redirect(response.body.init_point);
          }).catch(function (error) {
             console.log(error);
